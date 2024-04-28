@@ -1,23 +1,28 @@
 /**
 * call library
 */
-const db = require('./config/database')
+require('dotenv').config()
 const express = require("express")
 const app = express()
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const flash = require('connect-flash')
+const mongoose = require('mongoose')
 const passport = require('passport')
 const passportSetup = require('./config/passport-setup')
 const User = require('./models/User')
 /**
 * port for this server
 */
-port = 3000
+let db = mongoose.connect(process.env.db,{ useNewUrlParser: true } , (err)=> {
+    if (err) {
+        console.log(err)
+    } else {
+        console.log('connected...')
+    }
+})
 
-/**
-* call ejs template
-*/
+console.log(db)
 app.set('view engine', 'ejs')
 
 /**
@@ -141,6 +146,6 @@ app.get('*', function(req, res){
 /**
 * listen to port 3000
 */
-app.listen(port, ()=> {
+app.listen(process.env.port, ()=> {
     console.log('this application is wokring on port 3000')
 })
