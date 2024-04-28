@@ -11,26 +11,22 @@ moment().format();
 
 /**
 * middleware
-*/
-isAuthenticated = (req,res,next) => {
-    if (req.isAuthenticated() && ( req.user.isChef() || req.user.isAdmin() )) return next()
-    res.redirect('/users/login')
-}
+
 
 /**
 * route for all chef
 */
-router.get('/all/:page?',isAuthenticated, chefController.all_chef)
+router.get('/all/:page?', chefController.all_chef)
 
 /**
 * route for new chef
 */
-router.get('/new',isAuthenticated, chefController.render_chef)
+router.get('/new', chefController.render_chef)
 
 /**
 * route for post chef
 */
-router.post('/new',isAuthenticated, [
+router.post('/new', [
     check('firstname').isLength({min: 5}).withMessage('firstname should be more than 5 char'),
     check('lastname').isLength({min: 5}).withMessage('lastname should be more than 5 char'),
     check('email').isLength({min: 5}).withMessage('email should be more than 5 char'),
@@ -42,17 +38,17 @@ router.post('/new',isAuthenticated, [
 /**
 * route for single chef
 */
-router.get('/single/:id',isAuthenticated, chefController.find_chef_by_id)
+router.get('/single/:id', chefController.find_chef_by_id)
 
 /**
 * route for edit chef
 */
-router.get('/edit/:id',isAuthenticated, chefController.edit_chef_by_id)
+router.get('/edit/:id', chefController.edit_chef_by_id)
 
 /**
 * route for update chef
 */
-router.post('/update',isAuthenticated,[
+router.post('/update',[
     check('firstname').isLength({min: 5}).withMessage('firstname should be more than 5 char'),
     check('lastname').isLength({min: 5}).withMessage('lastname should be more than 5 char'),
     check('email').isLength({min: 5}).withMessage('email should be more than 5 char'),
@@ -63,6 +59,6 @@ router.post('/update',isAuthenticated,[
 /**
 * route for delete chef
 */
-router.post('/delete',isAuthenticated, chefController.delete_chef_by_id)
+router.post('/delete', chefController.delete_chef_by_id)
 
 module.exports = router

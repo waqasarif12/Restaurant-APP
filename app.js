@@ -9,7 +9,7 @@ const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport')
 const passportSetup = require('./config/passport-setup')
-
+const User = require('./models/User')
 /**
 * port for this server
 */
@@ -65,6 +65,8 @@ app.get('*', (req,res,next)=> {
 /**
 * this route for Home Page
 */
+
+
 app.get('/', (req,res)=> {
    res.render('index',{title:"Home Page"})
 })

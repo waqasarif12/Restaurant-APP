@@ -16,26 +16,22 @@ moment().format();
 
 /**
 * middleware
-*/
-isAuthenticated = (req,res,next) => {
-    if (req.isAuthenticated() && ( req.user.isBill() || req.user.isAdmin() ) ) return next()
-    res.redirect('/users/login')
-}
+
 
 /**
 * route for all bill
 */
-router.get('/all/:page?',isAuthenticated, billController.all_bill)
+router.get('/all/:page?', billController.all_bill)
 
 /**
 * route for new bill
 */
-router.get('/new',isAuthenticated, billController.render_bill)
+router.get('/new', billController.render_bill)
 
 /**
 * route for post bill
 */
-router.post('/new',isAuthenticated, [
+router.post('/new', [
     check('sub_total').isLength({min: 5}).withMessage('sub total should be more than 5 char'),
     check('vat').isLength({min: 5}).withMessage('alcohol should be more than 5 char'),
     check('total').isLength({min: 5}).withMessage('type should be more than 5 char')
@@ -44,17 +40,17 @@ router.post('/new',isAuthenticated, [
 /**
 * show single bill
 */
-router.get('/single/:id',isAuthenticated, billController.find_bill_by_id)
+router.get('/single/:id', billController.find_bill_by_id)
 
 /**
 * route for bill
 */
-router.get('/edit/:id',isAuthenticated, billController.edit_bill_by_id)
+router.get('/edit/:id', billController.edit_bill_by_id)
 
 /**
 * route for update bill
 */
-router.post('/update',isAuthenticated,[
+router.post('/update',[
     check('sub_total').isLength({min: 5}).withMessage('sub total should be more than 5 char'),
     check('vat').isLength({min: 5}).withMessage('alcohol should be more than 5 char'),
     check('total').isLength({min: 5}).withMessage('type should be more than 5 char')
@@ -63,6 +59,6 @@ router.post('/update',isAuthenticated,[
 /**
 * route for delete bill
 */
-router.post('/delete',isAuthenticated, billController.delete_bill_by_id)
+router.post('/delete', billController.delete_bill_by_id)
 
 module.exports = router

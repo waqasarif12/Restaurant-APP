@@ -12,20 +12,16 @@ const customerController = require('../controllers/customer.controller')
 /**
 * middleware
 */
-isAuthenticated = (req,res,next) => {
-    if (req.isAuthenticated() && ( req.user.isCustomer() || req.user.isAdmin() )) return next()
-    res.redirect('/users/login')
-}
 
 /**
 * route for all customer
 */
-router.get('/all/:page?',isAuthenticated, customerController.all_customers)
+router.get('/all/:page?', customerController.all_customers)
 
 /**
 * route for new customer
 */
-router.get('/new',isAuthenticated, customerController.render_customer)
+router.get('/new', customerController.render_customer)
 
 // route for post customer
 /**
@@ -41,17 +37,17 @@ router.post('/new', [
 /**
 * route for single customer
 */
-router.get('/single/:id',isAuthenticated, customerController.find_customer_by_id)
+router.get('/single/:id', customerController.find_customer_by_id)
 
 /**
 * route for edit customer
 */
-router.get('/edit/:id',isAuthenticated, customerController.edit_customer_by_id)
+router.get('/edit/:id', customerController.edit_customer_by_id)
 
 /**
 * route for update customer
 */
-router.post('/update',isAuthenticated,[
+router.post('/update',[
     check('firstname').isLength({min: 5}).withMessage('firstname should be more than 5 char'),
     check('lastname').isLength({min: 5}).withMessage('lastname should be more than 5 char'),
     check('contact').isLength({min: 3}).withMessage('contact should be more than 5 char'),
@@ -61,6 +57,6 @@ router.post('/update',isAuthenticated,[
 /**
 * route for delete customer
 */
-router.post('/delete',isAuthenticated, customerController.delete_customer_by_id)
+router.post('/delete', customerController.delete_customer_by_id)
 
 module.exports = router
