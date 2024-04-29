@@ -8,7 +8,7 @@ const app = express()
 */
 
 
-app.get('/test', (req,res)=> {
+app.get('/', (req,res)=> {
    res.send("hello to the vercel")
 })
 
